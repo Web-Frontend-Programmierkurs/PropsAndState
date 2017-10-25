@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 class App extends Component {
   render() {
-    return <div>Test</div>;
+    return (
+      <div>Hello, world!</div>
+    )
   }
 }
 
-export default App;
+export default App
