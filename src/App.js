@@ -5,9 +5,8 @@ import TodoList from './TodoList'
 import './App.css'
 
 class App extends Component {
-
   state = {
-    items: [],
+    items: []
   }
 
   render() {
@@ -27,27 +26,31 @@ class App extends Component {
   create = text => {
     const newItem = {
       id: uuid(),
-      text,
+      text
     }
-    const items = [newItem, ...this.state.items]
-    this.setState({ items })
+    this.setState(state => ({
+      items: [newItem, ...state.items]
+    }))
   }
 
   delete = id => {
-    const items = [...this.state.items]
-    const index = items.findIndex(item => item.id === id)
-    if (index === -1) return
-    items.splice(index, 1)
-    this.setState({ items })
+    this.setState(state => ({
+      items: state.items.filter(item => item.id !== id)
+    }))
   }
 
   toggle = id => {
-    const items = [...this.state.items]
-    const index = items.findIndex(item => item.id === id)
-    if (index === -1) return
-    const toggledItem = { ...items[index], done: !items[index].done }
-    items.splice(index, 1, toggledItem)
-    this.setState({ items })
+    this.setState(state => ({
+      items: state.items.map(item => {
+        if (item.id === id) {
+          return {
+            ...item,
+            done: !item.done
+          }
+        }
+        return item
+      })
+    }))
   }
 }
 
